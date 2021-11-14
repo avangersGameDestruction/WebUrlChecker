@@ -33,6 +33,8 @@ namespace WebUrlChecker
         {
             string url = ce_ComboBox1.SelectedItem + txtBox1.Text + ce_ComboBox2.SelectedItem;
 
+            progressBar1.Value = 0;
+
             if (txtBox1.Text == string.Empty)
             {
                 richTextBox1.Text = "please fill in the textbox for looking if a url is valid / in use or not";
@@ -40,11 +42,29 @@ namespace WebUrlChecker
 
             else
             {
-                richTextBox1.Text = IsValidURL(url).ToString();
-
-                if (richTextBox1.Text == "True")
+                if (progressBar1.Value == 0)
                 {
-                    richTextBox1.Text = txtBox1.Text + " - " + IsValidAndReachable(url).ToString();
+                    progressBar1.Value += 10;
+
+                    if (progressBar1.Value > 100)
+                    {
+                        richTextBox1.Text = IsValidURL(url).ToString();
+
+                        if (richTextBox1.Text == "True")
+                        {
+                            richTextBox1.Text = txtBox1.Text + " - " + IsValidAndReachable(url).ToString();
+                        }
+
+                        else if (richTextBox1.Text == "False")
+                        {
+                            richTextBox1.Text = txtBox2.Text + " - " + IsValidAndReachable(url).ToString();
+                        }
+
+                        else
+                        {
+                            richTextBox1.Text = "something did go wrong please report the isseu or try again";
+                        }
+                    }
                 }
             }
         }
@@ -98,6 +118,8 @@ namespace WebUrlChecker
         {
             string fullurl = txtBox2.Text;
 
+            progressBar1.Value = 0;
+
             if (txtBox2.Text == string.Empty)
             {
                 richTextBox1.Text = "please fill in the textbox for looking if a url is valid / in use or not";
@@ -105,23 +127,48 @@ namespace WebUrlChecker
 
             else
             {
-                richTextBox1.Text = IsValidURL(fullurl).ToString();
-
-                if (richTextBox1.Text == "True")
+                if (progressBar1.Value == 0)
                 {
-                    richTextBox1.Text = txtBox2.Text + " - " + IsValidAndReachable(fullurl).ToString();
-                }
+                    timer1.Start();
 
-                else if(richTextBox1.Text == "False")
-                {
-                    richTextBox1.Text = txtBox2.Text + " - " + IsValidAndReachable(fullurl).ToString();
-                }
+                    if (progressBar1.Value > 100)
+                    {
+                        timer1.Stop();
 
-                else
-                {
-                    richTextBox1.Text = "something did go wrong please report the isseu or try again";
+                        richTextBox1.Text = IsValidURL(fullurl).ToString();
+
+                        if (richTextBox1.Text == "True")
+                        {
+                            richTextBox1.Text = txtBox1.Text + " - " + IsValidAndReachable(fullurl).ToString();
+                        }
+
+                        else if (richTextBox1.Text == "False")
+                        {
+                            richTextBox1.Text = txtBox2.Text + " - " + IsValidAndReachable(fullurl).ToString();
+                        }
+
+                        else
+                        {
+                            richTextBox1.Text = "something did go wrong please report the isseu or try again";
+                        }
+                    }
                 }
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            progressBar1.Value += 10;
         }
     }
 }
