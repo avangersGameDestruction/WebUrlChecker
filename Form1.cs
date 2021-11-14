@@ -129,12 +129,8 @@ namespace WebUrlChecker
             {
                 if (progressBar1.Value == 0)
                 {
-                    timer1.Start();
-
                     if (progressBar1.Value > 100)
                     {
-                        timer1.Stop();
-
                         richTextBox1.Text = IsValidURL(fullurl).ToString();
 
                         if (richTextBox1.Text == "True")
@@ -164,11 +160,6 @@ namespace WebUrlChecker
         private void button4_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            progressBar1.Value += 10;
         }
     }
 }
