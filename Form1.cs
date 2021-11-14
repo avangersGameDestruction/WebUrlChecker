@@ -91,7 +91,7 @@ namespace WebUrlChecker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("true means its already in use false mean its not in use on the internet created by avangers MIT license", "Web Url Checker", MessageBoxButtons.OK, (MessageBoxIcon)MessageBoxOptions.DefaultDesktopOnly);
+            MessageBox.Show("true means its already in use false mean its not in use on the internet created by avangers MIT license", "Web Url Checker");
         }
 
         private void button2_Click(object sender, EventArgs e)
