@@ -21,5 +21,13 @@ namespace WebUrlChecker
         {
 
         }
+
+        // Check if the url is valid
+        private bool IsValidURL(string url)
+        {
+            Uri uriResult;
+            return Uri.TryCreate(url, UriKind.Absolute, out uriResult)
+                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+        }
     }
 }
